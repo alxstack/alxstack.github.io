@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Wilson — Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Syne:wght@400;500;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#c9a96e;--gold-light:#e8d5a3;--cream:#f5f0e8;
+  --ink:#0a0805;--ink2:#1a1510;--warm:#2a2018;
+  --muted:#8a7d6a;--line:rgba(201,169,110,0.2);
+}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--cream);font-family:'Syne',sans-serif;overflow-x:hidden;cursor:none;}
+#cursor{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease;mix-blend-mode:difference;}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transition:transform 0.08s ease,width 0.3s ease,height 0.3s ease;margin:-13px 0 0 -13px;opacity:0.6;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 4rem;background:linear-gradient(to bottom,rgba(10,8,5,0.95),transparent);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;letter-spacing:0.15em;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+.nav-links a:hover{color:var(--gold)}
+#hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 60% 40%,rgba(201,169,110,0.07) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(201,169,110,0.04) 0%,transparent 50%);}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,169,110,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,0.04) 1px,transparent 1px);background-size:80px 80px;transform:perspective(800px) rotateX(10deg) scale(1.2);transform-origin:bottom center;}
+.hero-content{position:relative;z-index:2;text-align:center;padding:0 2rem;}
+.hero-eyebrow{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;display:flex;align-items:center;justify-content:center;gap:1rem;}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:40px;height:1px;background:var(--gold);opacity:0.5;}
+h1.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(5rem,12vw,11rem);font-weight:300;line-height:0.9;letter-spacing:-0.02em;color:var(--cream);}
+h1.hero-name em{font-style:italic;color:var(--gold);display:block;}
+.hero-role{margin-top:2rem;font-size:0.8rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.75rem;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);}
+.scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+@keyframes scrollPulse{0%,100%{opacity:0.3}50%{opacity:1}}
+section{position:relative;padding:8rem 4rem;overflow:hidden}
+.section-label{font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
+.section-label::after{content:'';flex:1;max-width:60px;height:1px;background:var(--gold);opacity:0.4;}
+h2.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,6vw,5.5rem);font-weight:300;line-height:1;color:var(--cream);}
+h2.section-title em{font-style:italic;color:var(--gold)}
+#about{background:var(--ink)}
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;margin-top:5rem;}
+.about-text p{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;line-height:1.7;color:rgba(245,240,232,0.75);margin-bottom:1.5rem;}
+.about-text p strong{color:var(--cream);font-weight:400}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.stat-box{background:var(--ink2);padding:2rem 1.5rem;border:1px solid var(--line);position:relative;overflow:hidden;}
+.stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:var(--gold);line-height:1;}
+.stat-desc{font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-top:0.5rem;}
+#stack{background:var(--ink2)}
+.stack-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(201,169,110,0.05) 0%,transparent 60%);}
+.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:5rem;border:1px solid var(--line);}
+.stack-item{background:var(--ink2);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background 0.4s;}
+.stack-item:hover{background:var(--warm)}
+.stack-item::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform 0.4s;}
+.stack-item:hover::after{transform:scaleX(1)}
+.stack-icon{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--gold);margin-bottom:1rem;opacity:0.7;}
+.stack-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--cream);margin-bottom:0.5rem;}
+.stack-desc{font-size:0.75rem;color:var(--muted);line-height:1.6;letter-spacing:0.05em}
+#work{background:var(--ink)}
+.work-list{margin-top:5rem}
+.project-item{display:grid;grid-template-columns:80px 1fr auto auto;align-items:center;gap:3rem;padding:2.5rem 0;border-bottom:1px solid var(--line);position:relative;overflow:hidden;transition:padding-left 0.4s ease;text-decoration:none;color:inherit;}
+.project-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,rgba(201,169,110,0.08),transparent);transition:width 0.4s ease;}
+.project-item:hover::before{width:100%}
+.project-item:hover{padding-left:1rem}
+.project-num{font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--gold);opacity:0.5;}
+.project-info h3{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;color:var(--cream);transition:color 0.3s;}
+.project-item:hover h3{color:var(--gold)}
+.project-desc{font-size:0.78rem;color:var(--muted);margin-top:0.4rem;line-height:1.5;max-width:480px;}
+.project-tags{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.6rem;}
+.tag{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);padding:0.25rem 0.75rem;border:1px solid var(--line);}
+.project-year{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--muted);}
+.project-arrow{font-size:1.2rem;color:var(--gold);opacity:0;transition:opacity 0.3s,transform 0.3s;transform:translateX(-10px);}
+.project-item:hover .project-arrow{opacity:1;transform:translateX(0)}
+.marquee-section{background:var(--gold);padding:1.2rem 0;overflow:hidden;}
+.marquee-track{display:flex;gap:4rem;white-space:nowrap;animation:marquee 20s linear infinite;}
+.marquee-item{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--ink);letter-spacing:0.1em;display:flex;align-items:center;gap:1rem;}
+.marquee-dot{width:4px;height:4px;background:var(--ink);border-radius:50%;opacity:0.4}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+#contact{background:var(--ink2);text-align:center}
+.contact-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 100%,rgba(201,169,110,0.08) 0%,transparent 60%);}
+.contact-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.contact-inner h2{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,7rem);font-weight:300;line-height:0.9;margin-bottom:2rem;}
+.contact-inner h2 em{font-style:italic;color:var(--gold)}
+.contact-sub{font-size:0.8rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:3rem;}
+.cta-btn{display:inline-block;font-size:0.75rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink);background:var(--gold);padding:1.2rem 3.5rem;border:none;font-family:'Syne',sans-serif;font-weight:700;cursor:pointer;transition:background 0.3s,transform 0.2s;text-decoration:none;}
+.cta-btn:hover{background:var(--gold-light);transform:translateY(-2px)}
+.social-links{display:flex;gap:2rem;justify-content:center;margin-top:3rem;}
+.social-links a{font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+.social-links a:hover{color:var(--gold)}
+footer{background:var(--ink);border-top:1px solid var(--line);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;}
+footer p{font-size:0.7rem;color:var(--muted);letter-spacing:0.1em}
+.deco-text{position:absolute;font-family:'Cormorant Garamond',serif;font-size:clamp(8rem,20vw,18rem);font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(201,169,110,0.06);white-space:nowrap;pointer-events:none;line-height:1;}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.9s ease,transform 0.9s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){
+  nav{padding:1.2rem 1.5rem}.nav-links{gap:1.2rem}
+  section{padding:5rem 1.5rem}
+  .about-layout{grid-template-columns:1fr;gap:3rem}
+  .stack-grid{grid-template-columns:1fr 1fr}
+  .project-item{grid-template-columns:50px 1fr auto;gap:1rem}
+  .project-year{display:none}
+  footer{flex-direction:column;gap:0.5rem;text-align:center}
+}
+@media(max-width:480px){
+  .stack-grid{grid-template-columns:1fr}
+  .nav-links a{font-size:0.6rem}.nav-links{gap:0.8rem}
+}
+</style>
+</head>
+<body>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav>
+  <a class="nav-logo" href="#">A. Wilson</a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#stack">Stack</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid" id="heroGrid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">Developer — Flower Mound, TX</div>
+    <h1 class="hero-name reveal" style="transition-delay:0.15s">
+      Alex
+      <em>Wilson</em>
+    </h1>
+    <div class="hero-role reveal" style="transition-delay:0.3s">Building things on the internet</div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+  <span class="deco-text" style="bottom:-2rem;right:-2rem">dev</span>
+</section>
+
+<div class="marquee-section">
+  <div class="marquee-track">
+    <div class="marquee-item"><span>HTML</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>CSS</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>JavaScript</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>React</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>Python</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>Node.js</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>Java</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>Firebase</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>Git</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>HTML</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>CSS</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>JavaScript</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>React</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>Python</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>Node.js</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>Java</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>Firebase</span><span class="marquee-dot"></span></div>
+    <div class="marquee-item"><span>Git</span><span class="marquee-dot"></span></div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="deco-text" style="top:-1rem;left:-2rem">about</div>
+  <div class="section-label reveal">01 — About</div>
+  <h2 class="section-title reveal" style="transition-delay:0.1s">Young builder,<br><em>big ideas.</em></h2>
+  <div class="about-layout">
+    <div class="about-text reveal" style="transition-delay:0.2s">
+      <p>I'm <strong>Alex Wilson</strong>, a 15-year-old developer from Flower Mound, Texas with a genuine passion for building things on the web.</p>
+      <p>I taught myself to code and I've been hooked ever since. I love the feeling of turning an idea into something real that people can actually use.</p>
+      <p>Always learning. Always building. Always looking for the next interesting problem to solve.</p>
+    </div>
+    <div class="about-stats reveal" style="transition-delay:0.3s">
+      <div class="stat-box">
+        <div class="stat-num">15</div>
+        <div class="stat-desc">Years old</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">TX</div>
+        <div class="stat-desc">Flower Mound</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">∞</div>
+        <div class="stat-desc">Things to learn</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">01</div>
+        <div class="stat-desc">Goal: ship great work</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="stack-bg"></div>
+  <div class="section-label reveal">02 — Stack</div>
+  <h2 class="section-title reveal" style="transition-delay:0.1s">What I<br><em>work with.</em></h2>
+  <div class="stack-grid">
+    <div class="stack-item reveal" style="transition-delay:0.1s">
+      <div class="stack-icon">{ frontend }</div>
+      <div class="stack-name">HTML / CSS</div>
+      <div class="stack-desc">The foundation. Clean markup, responsive layouts, and CSS that actually makes sense.</div>
+    </div>
+    <div class="stack-item reveal" style="transition-delay:0.15s">
+      <div class="stack-icon">{ language }</div>
+      <div class="stack-name">JavaScript</div>
+      <div class="stack-desc">My go-to language. Comfortable with modern ES6+ and always pushing deeper.</div>
+    </div>
+    <div class="stack-item reveal" style="transition-delay:0.2s">
+      <div class="stack-icon">{ framework }</div>
+      <div class="stack-name">React</div>
+      <div class="stack-desc">Component thinking. Building UIs that are reusable, readable, and fast.</div>
+    </div>
+    <div class="stack-item reveal" style="transition-delay:0.25s">
+      <div class="stack-icon">{ backend }</div>
+      <div class="stack-name">Python</div>
+      <div class="stack-desc">Backend services, automation, and scripting. Clean, expressive, and powerful.</div>
+    </div>
+    <div class="stack-item reveal" style="transition-delay:0.3s">
+      <div class="stack-icon">{ platform }</div>
+      <div class="stack-name">Firebase</div>
+      <div class="stack-desc">Auth, Firestore, and hosting. Full app infrastructure without the overhead.</div>
+    </div>
+    <div class="stack-item reveal" style="transition-delay:0.35s">
+      <div class="stack-icon">{ systems }</div>
+      <div class="stack-name">Java</div>
+      <div class="stack-desc">Minecraft mod development with Fabric. Shipping real software used by real players.</div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="deco-text" style="top:-1rem;right:-1rem">work</div>
+  <div class="section-label reveal">03 — Projects</div>
+  <h2 class="section-title reveal" style="transition-delay:0.1s">Things I've<br><em>built.</em></h2>
+  <div class="work-list">
+
+    <a class="project-item reveal" href="#" style="transition-delay:0.1s">
+      <div class="project-num">01</div>
+      <div class="project-info">
+        <h3>SwimFast</h3>
+        <div class="project-desc">A full-stack web app for swimmers to track times, visualize progress, and manage training data — built with React, a Python backend, and Firebase services.</div>
+        <div class="project-tags">
+          <span class="tag">React</span>
+          <span class="tag">Python</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Full-Stack</span>
+        </div>
+      </div>
+      <div class="project-year">2025</div>
+      <div class="project-arrow">→</div>
+    </a>
+
+    <a class="project-item reveal" href="https://github.com/alxstack/F3Keybinding" target="_blank" rel="noopener" style="transition-delay:0.15s">
+      <div class="project-num">02</div>
+      <div class="project-info">
+        <h3>F3Keybinding</h3>
+        <div class="project-desc">A published Minecraft Fabric mod that lets players remap the F3 debug menu to any key. Available on Modrinth with active releases and real users.</div>
+        <div class="project-tags">
+          <span class="tag">Java</span>
+          <span class="tag">Fabric</span>
+          <span class="tag">Minecraft Mod</span>
+          <span class="tag">Open Source</span>
+        </div>
+      </div>
+      <div class="project-year">2024</div>
+      <div class="project-arrow">→</div>
+    </a>
+
+    <a class="project-item reveal" href="https://github.com/alxstack/villager-schedules" target="_blank" rel="noopener" style="transition-delay:0.2s">
+      <div class="project-num">03</div>
+      <div class="project-info">
+        <h3>Villager Schedules</h3>
+        <div class="project-desc">A Fabric mod that adds an in-game HUD showing what every nearby villager is doing in real time — because checking the wiki mid-game is a vibe killer. Published on Modrinth.</div>
+        <div class="project-tags">
+          <span class="tag">Java</span>
+          <span class="tag">Fabric</span>
+          <span class="tag">Minecraft Mod</span>
+          <span class="tag">HUD</span>
+        </div>
+      </div>
+      <div class="project-year">2024</div>
+      <div class="project-arrow">→</div>
+    </a>
+
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-bg"></div>
+  <div class="contact-inner">
+    <div class="section-label reveal" style="justify-content:center">04 — Contact</div>
+    <h2 class="reveal" style="transition-delay:0.1s">Let's<br><em>connect.</em></h2>
+    <div class="contact-sub reveal" style="transition-delay:0.2s">Open to collabs, feedback &amp; cool ideas</div>
+    <!-- Replace with your real email -->
+    <a href="mailto:alex.wilson@alexs.software" class="cta-btn reveal" style="transition-delay:0.3s">alex.wilson@alexs.software</a>
+    <div class="social-links reveal" style="transition-delay:0.4s">
+      <a href="https://github.com/alxstack" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Alex Wilson</p>
+  <p>Flower Mound, Texas</p>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cursor.style.transform=`translate(${mx-5}px,${my-5}px)`;
+});
+(function animRing(){
+  rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+  ring.style.transform=`translate(${rx}px,${ry}px)`;
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.stack-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    ring.style.width='56px'; ring.style.height='56px';
+    ring.style.marginLeft='-28px'; ring.style.marginTop='-28px';
+  });
+  el.addEventListener('mouseleave',()=>{
+    ring.style.width='36px'; ring.style.height='36px';
+    ring.style.marginLeft='-13px'; ring.style.marginTop='-13px';
+  });
+});
+window.addEventListener('scroll',()=>{
+  const y=window.scrollY;
+  const g=document.getElementById('heroGrid');
+  g.style.transform=`perspective(800px) rotateX(${10+y*0.02}deg) translateY(${y*0.3}px) scale(1.2)`;
+  g.style.opacity=Math.max(0,1-y/600);
+});
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+setTimeout(()=>{
+  document.querySelectorAll('.reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('visible'),i*60));
+},100);
+</script>
+</body>
+</html>
